@@ -1,0 +1,417 @@
+body{
+	margin: 0;
+}
+div{
+	width: 200px;
+	height: 200px;
+	margin: 100px auto;
+	background-color: rgb(12,103,114);
+}
+div > p{
+	color: white;
+	font-family: arial, sans-serif;
+	padding: 10px;
+}
+#jeden{
+	background-color: rgb(222, 12, 140);
+ /* animacja działa nam na hover. Aby nie było efektu natychmiastowego powrotu do stanu pierwotnego, dajemy translate do zerowego stadium oraz transition w tym elemencie*/
+	transform: translateX(0px);
+	transition-property: background-color, transform;
+	transition-duration: 2s;
+	transition-timing-function: ease-in-out;
+}
+#jeden:hover{
+	background-color: rgb(20, 12, 200);
+	transform: translateX(200px);
+	/*transition-property: background-color, transform;
+	transition-duration: 2s;
+	transition-timing-function: cubic-bezier(.88,-0.2,.38,.86);*/
+
+/*  transition można opisywać skrótowo*/
+	-webkit-transition: all 2s 0.5s ease-in-out;
+	transition: all 2s 0.5s ease-in-out;
+}
+
+#dwa{
+	border-radius: 10%;
+	background-color: rgb(12,34, 120);
+	border: 12px solid rgb(120,34, 120);
+	width: 200px;
+}
+#dwa p{
+	transform: translateX(300px);
+	opacity: 0;
+	transition: all 1s ease-in-out;
+}
+/*dodajemy tutaj efekt na p znajdujący się w #dwa 
+jeżeli najedziemy na #dwa, zadziała efekt dla p
+pierwotnie p jest "poza" elementem i ma opacity 0;
+po transition "wjedza na miejsce"*/
+#dwa:hover p{
+	transform: translateX(0px);
+	opacity: 1;
+	transition: all 1s ease-in-out;
+}
+
+/*animacje można zapisywać za pomocą transition, ale wygodniej jest tworzyć keyframes
+wówczas za pomocą tagu animation można wielokrotnie wykorzystać tę samą animację*/
+#dwa:hover{
+	animation: animacjeDwa 2s;
+}
+/*przy tworzeniu keyframes ustalamy wartości dla danego stanu naszej animacji, najlepiej w procentach;
+punktów zmiany może być 2, 20, 100... tyle, ile potrzebujesz*/
+@keyframes animacjeDwa{
+	0%{
+		border-radius: 10%;
+		background-color: rgb(12,34, 120);
+		border: 12px solid rgb(120,34, 120);
+		width: 200px;
+	}
+	100%{
+		background-color: rgb(42,84, 100);
+		border: 32px solid rgb(12,34, 120);
+		border-radius: 20%;
+		width: 400px;
+	}
+}
+
+
+/*poniżej efekt skopiowany z sieci – nie przejmuj się, że wygląda skomplikowanie.
+Wyjaśnijmy, co się tu dzieje.
+Na początek zauważ, że w HTML są 22 puste divy*/
+#trzy {
+  position: relative;
+  width: 100%;
+ /* kolejny trick na pozycjonowanie wertykalne. Działa tylko w bardzo małej ilości konkretnych przypadków*/
+  height: 0;
+  padding-top: 100%;
+  overflow: hidden;
+  background-color: transparent;
+}
+/*ustalamy ogólną wielkość każdego z pasków, będziemy tym manipulować w animation*/
+#trzy div {
+  margin-top: -17%;
+  height: 34%; 
+  width: 2%;
+  top: 30%;
+  border-radius: 20px;
+  position: absolute;
+}
+/*zwróć uwagę na ujemny czas!
+Jeśli dasz ujemny czas, animacja rozpocznie się od tego punktu w czasie, do którego doszłaby, gdyby zaczynała od zera.
+Ponieważ wszystkie elementy wykonują tą samą animację, przesunięcie w czasie o proporcjonalne wartości daje efekt equalizera*/
+#trzy div:nth-of-type(1)  { 
+	animation: wave 17s   0.000s linear infinite; 
+}
+#trzy div:nth-of-type(2)  { 
+	animation: wave 17s -16.227s linear infinite; }
+#trzy div:nth-of-type(3)  { animation: wave 17s -15.455s linear infinite; }
+#trzy div:nth-of-type(4)  { animation: wave 17s -14.682s linear infinite; }
+#trzy div:nth-of-type(5)  { animation: wave 17s -13.909s linear infinite; }
+#trzy div:nth-of-type(6)  { animation: wave 17s -13.136s linear infinite; }
+#trzy div:nth-of-type(7)  { animation: wave 17s -12.364s linear infinite; }
+#trzy div:nth-of-type(8)  { animation: wave 17s -11.591s linear infinite; }
+#trzy div:nth-of-type(9)  { animation: wave 17s -10.818s linear infinite; }
+#trzy div:nth-of-type(10) { animation: wave 17s -10.045s linear infinite; }
+#trzy div:nth-of-type(11) { animation: wave 17s  -9.273s linear infinite; }
+#trzy div:nth-of-type(12) { animation: wave 17s  -8.500s linear infinite; }
+#trzy div:nth-of-type(13) { animation: wave 17s  -7.727s linear infinite; }
+#trzy div:nth-of-type(14) { animation: wave 17s  -6.955s linear infinite; }
+#trzy div:nth-of-type(15) { animation: wave 17s  -6.182s linear infinite; }
+#trzy div:nth-of-type(16) { animation: wave 17s  -5.409s linear infinite; }
+#trzy div:nth-of-type(17) { animation: wave 17s  -4.636s linear infinite; }
+#trzy div:nth-of-type(18) { animation: wave 17s  -3.864s linear infinite; }
+#trzy div:nth-of-type(19) { animation: wave 17s  -3.091s linear infinite; }
+#trzy div:nth-of-type(20) { animation: wave 17s  -2.318s linear infinite; }
+#trzy div:nth-of-type(21) { animation: wave 17s  -1.545s linear infinite; }
+#trzy div:nth-of-type(22) { animation: wave 17s  -0.773s linear infinite; }
+
+/*keyframes explained:
+w zero i 100% jest wyspecyfikowana wartość left – zapewnia nam to przesunięcie od lewej do prawej każdego paska
+co 5% zmienia się kolor 
+co 10%, więc co drugi krok zmienia się height i margin – pasek wydłuża się i podjeżdża lekko do góry*/
+@keyframes wave {
+  0%   { 
+  	left:-2%; 
+  	background: #3B44D1; 
+  }
+  5%   { 
+  	background: #9337FE; 
+  }
+  10%  { 
+  	height:10%; 
+  	margin-top: -5%; 
+  	background: #C532FC; }
+  15%  { 
+  	background: #F639F8; }
+  20%  { height:34%; margin-top:-17%; background: #F236C8; }
+  25%  { background: #FF2F8D; }
+  30%  { height:10%; margin-top: -5%; background: #EE3860; }
+  35%  { background: #DC5245; }
+  40%  { height:34%; margin-top:-17%; background: #F38643; }
+  45%  { background: #F8B435; }
+  50%  { height:10%; margin-top: -5%; background: #FAF444; }
+  55%  { background: #E0FF3B; }
+  60%  { height:34%; margin-top:-17%; background: #E1FF3C; }
+  65%  { background: #46F443; }
+  70%  { height:10%; margin-top: -5%; background: #54E67B; }
+  75%  { background: #4DF3A9; }
+  80%  { height:34%; margin-top:-17%; background: #3AF9DA; }
+  85%  { background: #36EBF4; }
+  90%  { height:10%; margin-top: -5%; background: #3DB3F3; }
+  95%  { background: #3C82F1; }
+  100% { height:34%; margin-top:-17%; left:100%; background: #5B38EE; }
+}
+/*to wszystko!
+dzięki przesunięciu czasowemu każdy pasek dostaje taki sam wygląd w tym samym punkcie szerokości okna, ale tak naprawdę, każdy z nich wykonuje tą samą animację.
+Uwaga: to mega obciąża silnik przeglądarki; non stop przelicza pozycję 22 divów */
+
+
+/*animacje poklatkowe!
+Przygotuj sobie sprite klatek animacji*/
+#cztery{
+	width: 40px;
+	height: 60px;
+	background-image: url("sprite.png");
+	background-position: 0 0;
+/*  dzielimy przesunięcie na tyle steps ile mamy klatek animacji*/
+	animation: mario 3s steps(27) infinite , move 3s infinite;
+}
+/*przesuwamy cały sprite od zera do końca*/
+@keyframes mario{
+	from{
+		background-position: 0 0;
+	}
+	to{
+		background-position: -1080px 0;
+	}
+}
+@keyframes move{
+	from{
+		transform: translateX(0px);
+	}
+	to{
+		transform: translateX(200px);
+	}
+}
+
+/*some fancy stuff:*/
+
+
+/*zwróć uwagę, że za pomocą box-shadow można tworzyć elementy, które "nie istnieją", są wyłącznie wizualne, ale nie są żadnym pseudoelementem ani niczym w HTML.
+
+spróbuj pobawić się poniższymi przykładami i powyłączać powłączać funkcje w narzędziach deweloperskich */
+#piec {
+  border-radius:50%;
+  height:2px; 
+  width:2px; 
+  position:relative; left:50%;
+  margin-top:-1px; margin-left:-1px;
+  box-shadow:
+    -75px -125px 0 40px #6cce74,
+     75px -125px 0 40px #c18d46,
+    150px    0px 0 40px #c14745,
+     75px  125px 0 40px #2e1e5b,
+    -75px  125px 0 40px #9c37a6,
+   -150px    0px 0 40px #76bdd1;
+  -webkit-animation:rotate 12s infinite linear;
+  animation:rotate 12s infinite linear;
+}
+@keyframes rotate {
+  16.67% {
+    box-shadow:
+      -75px -125px 0 40px #76bdd1,
+       75px -125px 0 40px #6cce74,
+      150px    0px 0 40px #c18d46,
+       75px  125px 0 40px #c14745,
+      -75px  125px 0 40px #2e1e5b,
+     -150px    0px 0 40px #9c37a6;
+  }
+  33.33%   { 
+    box-shadow:
+      -75px -125px 0 40px #9c37a6,
+       75px -125px 0 40px #76bdd1,
+      150px    0px 0 40px #6cce74,
+       75px  125px 0 40px #c18d46,
+      -75px  125px 0 40px #c14745,
+     -150px    0px 0 40px #2e1e5b;
+  }
+  50%      { 
+    box-shadow:
+      -75px -125px 0 40px #2e1e5b,
+       75px -125px 0 40px #9c37a6,
+      150px    0px 0 40px #76bdd1,
+       75px  125px 0 40px #6cce74,
+      -75px  125px 0 40px #c18d46,
+     -150px    0px 0 40px #c14745;
+  }
+  66.67%   { 
+    box-shadow:
+      -75px -125px 0 40px #c14745,
+       75px -125px 0 40px #2e1e5b,
+      150px    0px 0 40px #9c37a6,
+       75px  125px 0 40px #76bdd1,
+      -75px  125px 0 40px #6cce74,
+     -150px    0px 0 40px #c18d46;
+  }
+  88.88%   { 
+    box-shadow:
+      -75px -125px 0 40px #c18d46,
+       75px -125px 0 40px #c14745,
+      150px    0px 0 40px #2e1e5b,
+       75px  125px 0 40px #9c37a6,
+      -75px  125px 0 40px #76bdd1,
+     -150px    0px 0 40px #6cce74;
+  }
+  100% {
+    transform:rotate(-360deg);
+    box-shadow:
+      -75px -125px 0 40px #6cce74,
+       75px -125px 0 40px #c18d46,
+      150px    0px 0 40px #c14745,
+       75px  125px 0 40px #2e1e5b,
+      -75px  125px 0 40px #9c37a6,
+     -150px    0px 0 40px #76bdd1;
+  }
+}
+
+#gif {
+  background:black;
+  padding:10px;
+  height:80px;
+  width:80px;
+  border-radius:50%;
+  position:relative;
+  margin-top: 400px;
+  top:100%;
+  left:10%;
+  box-shadow:
+    178px 0 0 -25px black,
+    178px 0 0 -20px white,
+    -178px 0 0 -25px black,
+    -178px 0 0 -20px white, 
+    0 0 0 20px black,
+    0 0 0 30px white,
+    0 0 0 130px black,
+    0 0 0 135px white;
+  -webkit-animation: rotateGif 3s linear infinite;
+  animation: rotateGif 3s linear infinite ;
+}
+#gif:before {
+  content: " ";
+  position: absolute;
+  height:50px;
+  width:50px;
+  border-radius:50%;
+  top: -155px;
+  left: 20px;
+  background:black;
+  border: 5px solid white;
+  box-shadow:
+    0 355px 0 -5px black,
+    0 355px 0 0px white;
+  -webkit-animation: reverseRotateGif 3s linear infinite;
+  animation: reverseRotateGif 3s linear infinite;
+}
+#gif:after {
+  /* Segmented circle code goes here */
+  content: " ";
+  position: absolute;
+  height:280px;
+  width:280px;
+  left:-90px;
+  top:-90px;
+  background-image: url("data:image/svg+xml;base64, PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSAiaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDEwMCAxMDAiID4NCiAgICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0MCIgc3Ryb2tlLWRhc2hhcnJheT0iMC45NTIiIHN0cm9rZS13aWR0aD0iOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIvPg0KPC9zdmc+");
+  background-repeat: no-repeat;
+  z-index:2;
+  -webkit-animation: segmentRotateGif 300s linear infinite;
+  animation: segmentRotateGif 300s linear infinite;
+}
+@keyframes rotateGif {
+  0%   { transform: rotate(  0deg); }  
+  10%, 15%, 35%, 40%, 60%, 65%, 85%, 90%  { 
+    background: black; 
+    box-shadow:
+      178px 0 0 -25px black,
+      178px 0 0 -20px white,
+      -178px 0 0 -25px black,
+      -178px 0 0 -20px white, 
+      0 0 0 20px black,
+      0 0 0 30px white,
+      0 0 0 130px black,
+      0 0 0 135px white;
+  }
+  12.5%, 37.5%, 62.5%, 87.5% { 
+    background: white; 
+    box-shadow:
+      178px 0 0 -25px white,
+      178px 0 0 -20px white,
+      -178px 0 0 -25px white,
+      -178px 0 0 -20px white, 
+      0 0 0 20px black,
+      0 0 0 30px white,
+      0 0 0 130px black,
+      0 0 0 135px white;
+  }    
+  100% { transform: rotate(360deg); }
+}
+@keyframes reverseRotateGif {
+  0%   { transform: translateY(178px) rotate(0deg) translateY(-178px) rotate(0deg); }  
+  10%, 15%, 35%, 40%, 60%, 65%, 85%, 90%  { 
+    background: black; 
+    box-shadow: 0 355px 0 -5px black, 0 355px 0 0px white; 
+  }
+  12.5%, 37.5%, 62.5%, 87.5% { 
+    background: white; box-shadow: 0 355px 0 -5px white, 0 355px 0 0px white; 
+  }    
+  100% { transform: translateY(178px) rotate(-720deg) translateY(-178px) rotate(0deg); }
+}
+@keyframes segmentRotateGif {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(-32000deg); }
+}
+
+
+@-webkit-keyframes rotateGif {
+  0%   { -webkit-transform: rotate(  0deg); }  
+  10%, 15%, 35%, 40%, 60%, 65%, 85%, 90%  { 
+    background: black; 
+    box-shadow:
+      178px 0 0 -25px black,
+      178px 0 0 -20px white,
+      -178px 0 0 -25px black,
+      -178px 0 0 -20px white, 
+      0 0 0 20px black,
+      0 0 0 30px white,
+      0 0 0 130px black,
+      0 0 0 135px white;
+  }
+  12.5%, 37.5%, 62.5%, 87.5% { 
+    background: white; 
+    box-shadow:
+      178px 0 0 -25px white,
+      178px 0 0 -20px white,
+      -178px 0 0 -25px white,
+      -178px 0 0 -20px white, 
+      0 0 0 20px black,
+      0 0 0 30px white,
+      0 0 0 130px black,
+      0 0 0 135px white;
+  }    
+  100% { -webkit-transform: rotate(360deg); }
+}
+@-webkit-keyframes reverseRotateGif {
+  0%   { -webkit-transform: translateY(178px) rotate(0deg) translateY(-178px) rotate(0deg); }  
+  10%, 15%, 35%, 40%, 60%, 65%, 85%, 90%  { 
+    background: black; box-shadow: 0 355px 0 -5px black, 0 355px 0 0px white; 
+  }
+  12.5%, 37.5%, 62.5%, 87.5% { 
+    background: white; box-shadow: 0 355px 0 -5px white, 0 355px 0 0px white; 
+  }    
+  100% { -webkit-transform: translateY(178px) rotate(-720deg) translateY(-178px) rotate(0deg); }
+}
+@-webkit-keyframes segmentRotateGif {
+  0%   { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(-32000deg); }
+}
+
